@@ -90,7 +90,7 @@ jobs:
     steps:
       - name: Create Release Tag
         id: tag
-        run: echo "tag=$(date +%F_%T | tr -d ':-_')" >> "${GITHUB_OUTPUT}"
+        run: echo "tag=$(date +%F_%T | tr -d ':_-')" >> "${GITHUB_OUTPUT}"
   get-netdata-version:
     name: Get Netdata Version
     if: github.event_name == 'workflow_dispatch'
@@ -131,7 +131,7 @@ jobs:
           allowUpdates: false
           artifactErrorsFailBuild: true
           artifacts: 'netdata.msi'
-          body: With Netdata ${{ needs.get-netdata-version.outputs.version }}.
+          body: "With Netdata ${{ needs.get-netdata-version.outputs.version }}"
           commit: master
           tag: ${{ needs.prepare-release-tag.outputs.tag }}
           token: ${{ secrets.NETDATABOT_GITHUB_TOKEN }}
